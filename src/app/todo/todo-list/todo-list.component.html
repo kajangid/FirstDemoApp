@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <div class="card shadow mt-5">
+      <div class="card-header text-center">
+        <h1 class="display-6 fw-bold">To Do List</h1>
+      </div>
+    </div>
+
+    <div class="card shadow mt-5">
+      <div class="card-body p-4">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Add title"
+            aria-label="Add title"
+            aria-describedby="button-addon2"
+            #titleInput
+            (keyup)="onKey(titleInput.value)"
+            (keydown.enter)="onAddToDoTitleClickHandler(titleInput)"
+          />
+          <button
+            (click)="onAddToDoTitleClickHandler(titleInput)"
+            class="btn btn-outline-secondary"
+            id="button-addon2"
+            type="button"
+          >
+            <fa-icon [icon]="['fas', 'circle-plus']"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow mt-5" *ngIf="toDoList && toDoList.length > 0">
+      <div class="card-body p-4">
+        <div class="">
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let toDo of toDoList; let i = index"
+              [attr.data-index]="i"
+            >
+              <label
+                class="form-check-label stretched-link"
+                for="firstCheckboxStretched{{ i }}"
+                >{{ toDo.title }}</label
+              >
+              <input
+                class="form-check-input ms-1"
+                type="checkbox"
+                value=""
+                (change)="onStatusChange(i, toDo.isComplete)"
+                [checked]="toDo.isComplete"
+                id="firstCheckboxStretched{{ i }}"
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow mt-5">
+      <div class="card-header text-center">
+        <h3 class="display-6">Total Completed {{ totalCompleted }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
